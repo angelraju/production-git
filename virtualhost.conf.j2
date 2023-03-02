@@ -1,0 +1,11 @@
+<VirtualHost *:{{httpd_port}}>
+    DocumentRoot /var/www/html/{{httpd_domain}}
+    ServerName {{httpd_domain}}
+
+<Directory "/var/www/html/{{httpd_domain}}">
+        DirectoryIndex index.html index.php index.jsp
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+</Directory>
+</VirtualHost>

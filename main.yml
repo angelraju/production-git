@@ -12,12 +12,34 @@
       yum:
         name: httpd
         state: present
+
     - name: "Webserver - copying conf from httpd.conf.js"
       template:
         src: httpd.conf.j2
         dest: /etc/httpd/conf/httpd.conf
         owner: "{{ httpd_owner }}"
         group: "{{ httpd_group }}"
+
+    - name: "Webserver - copying virtualhost from local"
+      template:
+        src: "virtualhost.conf.j2"
+        dest: "/etc/httpd/conf.d/{{httpd_domain}}.conf"
+        owner: "{{httpd_owner}}"
+        group: "{{httpd_group}}"
+    
+    - name: "Webserver - creating document root"
+      file:
+        path: "/var/www/html/{{httpd_domain}}"
+        state: directory
+        owner: "{{httpd_owner}}"
+        group: "{{httpd_group}}"
+
+    - name: "Webserver - creating sample index.html"
+      copy:
+        content: "<h1><center>{{ansible_fqdn}}</center></h1>"
+        dest: /var/www/html/{{httpd_domain}}/index.html
+        owner: "{{httpd_owner}}"
+        group: "{{httpd_group}}"
 
     - name: "Restarting apache"
       service:
