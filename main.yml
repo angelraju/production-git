@@ -3,7 +3,8 @@
 - name: "Deploying a test site"
   hosts: amazon
   become: yes
-
+  vars_files:
+    - variables.yml
 
   tasks:
 
@@ -11,3 +12,15 @@
       yum:
         name: httpd
         state: present
+    - name: "Webserver - copying conf from httpd.conf.js"
+      template:
+        src: httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+        owner: "{{ httpd_owner }}"
+        group: "{{ httpd_group }}"
+
+    - name: "Restarting apache"
+      service:
+        name: httpd
+        state: restarted
+
