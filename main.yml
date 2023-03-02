@@ -36,7 +36,7 @@
 
     - name: "Webserver - creating sample index.html"
       copy:
-        content: "<h1><center>{{ansible_fqdn}}</center></h1>"
+        content: "<h1><center>my test page to check</center></h1>"
         dest: /var/www/html/{{httpd_domain}}/index.html
         owner: "{{httpd_owner}}"
         group: "{{httpd_group}}"
