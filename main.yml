@@ -13,6 +13,9 @@
         name: httpd
         state: present
 
+    - name: "Webserver - Enabling PHP support"
+      shell: amazon-linux-extras install php7.4 -y 
+
     - name: "Webserver - copying conf from httpd.conf.js"
       template:
         src: httpd.conf.j2
