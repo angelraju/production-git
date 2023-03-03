@@ -43,6 +43,19 @@
         dest: /var/www/html/{{httpd_domain}}/index.html
         owner: "{{httpd_owner}}"
         group: "{{httpd_group}}"
+    
+    - name: " Mariadb - Package-Mariadb Installtion"
+      yum:
+        name:
+          - mariadb-server
+          - MySQL-python
+        state: present
+
+    - name: "Mariadb - Restarting/enabling Mariadb server"
+      service:
+        name: mariadb
+        state: restarted
+        enabled: true 
 
     - name: "Restarting apache"
       service:
