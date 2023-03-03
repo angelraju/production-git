@@ -57,6 +57,15 @@
         state: restarted
         enabled: true 
 
+    - name: "Mariadb - Updating Root password"
+      ignore_errors: true
+      mysql_user:
+        login_user: "root"
+        login_password: ""
+        name: "root"
+        password: "{{mariadb_root_password}}"
+        host_all: true
+
     - name: "Restarting apache"
       service:
         name: httpd
