@@ -1,6 +1,6 @@
 ---
 
-- name: "Deploying a test site"
+- name: "Deploying a new-test site"
   hosts: amazon
   become: yes
   vars_files:
